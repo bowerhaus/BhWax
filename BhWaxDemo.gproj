@@ -1,0 +1,17 @@
+<project>
+ <properties autorotation="3" fps="60" scaleMode="2" iosDevice="0" packageName="com.yourdomain.yourapp" logicalHeight="1024" logicalWidth="768" retinaDisplay="3" assetsOnly="0" orientation="0" architecture="0">
+  <imageScales/>
+ </properties>
+ <folder name="Images">
+  <file source="Images/YouTube.png"/>
+ </folder>
+ <folder name="Wax">
+  <file source="../../CoreyJohnsonWax/lib/stdlib/waxClass.lua"/>
+  <file source="../../CoreyJohnsonWax/lib/stdlib/structs.lua"/>
+  <file source="../../CoreyJohnsonWax/lib/stdlib/enums.lua"/>
+ </folder>
+ <file source="../BhImagePicker/Plugin/IOS/BhImagePicker.mm"/>
+ <file source="IosImagePicker.lua"/>
+ <file source="init.lua"/>
+ <file source="main.lua"/>
+</project>
