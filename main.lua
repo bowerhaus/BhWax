@@ -142,7 +142,7 @@ function BhWaxDemo:createYouTubeButton()
 	button:setPosition(w/2, h*0.85)
 	button:addEventListener(Event.MOUSE_UP, function(event)
 		if self:hitTestPoint(event.x, event.y) then
-			self:playVideo("http://www.youtube.com/watch?v=jZGDcvkuRy0", (w-500)/2, 700, 500, 500/1.66)
+			self:playVideo("http://www.youtube.com/watch?v=zu1lTI4AtE8", (w-500)/2, 700, 500, 500/1.66)
 			button:removeFromParent()
 		end
 	end)
