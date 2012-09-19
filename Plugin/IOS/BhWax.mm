@@ -44,7 +44,7 @@ extern "C"{
     return [[^() {
         lua_State *L = wax_currentLuaState();
         wax_fromInstance(L, self);
-        lua_call(L, 1, 0);
+        lua_call(L, 0, 0);
     } copy] autorelease];
 }
 
@@ -77,6 +77,12 @@ static int getRootViewController(lua_State* L)
 	return 1;
 }
 
+static int getPathForFile(lua_State *L) {
+    NSString* filename = [NSString stringWithUTF8String: luaL_checkstring(L, 1)];
+    lua_pushstring(L, g_pathForFile([filename UTF8String]) );
+    return 1;
+}
+
 static int loader(lua_State *L)
 {
     //This is a list of functions that can be called from Lua
@@ -87,6 +93,9 @@ static int loader(lua_State *L)
 
     lua_pushcfunction(L, getRootViewController);
    	lua_setglobal(L, "getRootViewController");
+    
+    lua_pushcfunction(L, getPathForFile);
+   	lua_setglobal(L, "getPathForFile");
 
     //return the pointer to the plugin
     return 1;
