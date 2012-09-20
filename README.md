@@ -25,6 +25,9 @@ Folder for library modules
 ###/MyDocs/Library/Bowerhaus
 Folder containing sub-folders for all Bowerhaus libraries
 
+###/MyDocs/Library/Bowerhaus/BhHelpers
+Folder for helper/utility functions. You will NEED THIS MODULE.
+
 ###/MyDocs/Library/Bowerhaus/BhWax
 Folder for THIS MODULE
 

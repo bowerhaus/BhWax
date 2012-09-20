@@ -50,7 +50,7 @@ function BhWaxDemo:init()
 	local w, h=application:getContentWidth(), application:getContentHeight()
 	local bg=Shape.new()
 	bg:beginPath(Shape.NON_ZERO)
-	bg:setFillStyle(Shape.SOLID, 0xff0000)
+	bg:setFillStyle(Shape.SOLID, 0x7b9f2a)
 	bg:moveTo(0, 0)
 	bg:lineTo(w, 0)
 	bg:lineTo(w, h)
@@ -58,12 +58,27 @@ function BhWaxDemo:init()
 	bg:lineTo(0, 0)
 	bg:endPath()
 	self:addChild(bg)
-
-	-- Show an IOS image picker with a callback to our onImagePicked() method if an
-	-- image is chosen.
 	
-	local picker=IosImagePicker:init()
-	picker:pickImage(UIImagePickerControllerSourceTypePhotoLibrary, self.onImagePicked, self)
+	local button=Bitmap.new(Texture.new("Images/HotWax.png"))
+	button:setAnchorPoint(0.52, 0.48)
+	button:setPosition(w/2, h/2)
+	self:addChild(button)	
+	button:addEventListener(Event.MOUSE_UP, self.onMouseUp, self)
+	self.button=button
+	
+	local label=TextField.new(TTFont.new("Fonts/Tahoma.ttf", 24), "Touch logo to start demo")
+	label:setPosition((w-label:getWidth())/2, h-100)
+	self:addChild(label)
+	self.label=label
+end
+
+function BhWaxDemo:onMouseUp(event)
+	if self:hitTestPoint(event.x, event.y) then
+		self.button:removeFromParent()
+		self.label:removeFromParent()
+		local picker=IosImagePicker:init()
+		picker:pickImage(UIImagePickerControllerSourceTypePhotoLibrary, self.onImagePicked, self) 
+	end
 end
 
 function BhWaxDemo:onImagePicked(image)
@@ -73,7 +88,7 @@ function BhWaxDemo:onImagePicked(image)
 	
 	-- Resize the image and save it as a PNG to our documents folder.
 	-- Note that because the Core Image functions required to to this (UIImagePNGRepresentation() among other) 
-	-- are simply plain C functions,m we can't get hold of them from Wax. Hence the need to create a simple OBJC
+	-- are simply plain C functions, we can't get hold of them from Wax. Hence the need to create a simple OBJC
 	-- wrapper protocol (see UIImage_Save.m)
 	--
 	local w, h=application:getContentWidth(), application:getContentHeight()
@@ -169,8 +184,6 @@ function BhWaxDemo:playVideo(url, x, y, width, height)
 	
 	print(embedHTML)
 end
-	
-BhWaxDemo.new()
 
 -- ======== TextViewDelegate ========
 
@@ -190,5 +203,6 @@ end
 
 -- ======== End ========
 
+BhWaxDemo.new()
 
 

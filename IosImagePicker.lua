@@ -5,7 +5,7 @@ Wax code to bring up the standard IOS ImagePicker. We get a callback to a suppli
 function if an image is picked successfully. The handler is supplied the real ObjectiveC
 UIImage object; how cool is that!
 
-This code is almost a drop-in replacement for the plugin code that I write in BhImagePicker.mm
+This code is almost a drop-in replacement for the plugin code that I wrote in BhImagePicker.mm
 (see http://bowerhaus.eu/blog/files/gideros_snapshot.html). However, that code is more complex to
 understand (IMO), needs to be careful with memory management and has 432 lines compared with 130 or so.
 Seems like a hands down win for Wax.
@@ -72,6 +72,8 @@ function IosImagePicker:pickImageIPad(sourceType)
 	local rootController=getRootViewController()
 	local rootView=rootController:view()	
 	local bounds=rootView:bounds()
+	
+	print(rootView)
 	popover:setPopoverContentSize_animated(CGSize(bounds.width, bounds.height), false)	
 	popover:presentPopoverFromRect_inView_permittedArrowDirections_animated(rootView:frame(), rootView, 0, true)
 	return true

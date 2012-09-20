@@ -7,17 +7,18 @@
  </folder>
  <folder name="Images">
   <file source="Images/Art/HotWax.png"/>
-  <file source="Images/YouTube.png"/>
  </folder>
  <folder name="Library">
   <file source="../BhHelpers/BhHelpers.lua"/>
+  <file source="../BhHelpers/BhStream.lua"/>
  </folder>
  <folder name="Wax">
   <file source="../../CoreyJohnsonWax/lib/stdlib/waxClass.lua"/>
   <file source="../../CoreyJohnsonWax/lib/stdlib/structs.lua"/>
   <file source="../../CoreyJohnsonWax/lib/stdlib/enums.lua"/>
  </folder>
- <file source="BhWaxDemo.lua"/>
- <file source="IosImagePicker.lua"/>
+ <file source="Autocomplete.lua"/>
+ <file source="BhWaxAutoComplete.lua"/>
+ <file source="IosActivitySpinner.lua"/>
  <file source="init.lua"/>
 </project>
