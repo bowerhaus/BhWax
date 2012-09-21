@@ -149,23 +149,8 @@ static int getPathForFile(lua_State *L) {
     return 1;
 }
 
-static BOOL waxLoaded=FALSE;
-
 static int loader(lua_State *L)
 {
-    if (!waxLoaded) {
-        // Okay, this is tricky. Ideally we would call wax_setup() and wax_end()
-        // in g_initializePlugin() and g_deinitializePlugin() respectively. However, this causes two
-        // problems. The first is that this pair of functions are called several times during Gideros
-        // initialization, which can't be a good thing. Second, and more importantly, calling wax_start()
-        // in g_initializePlugin() caused an unplesant situation where the existing global table is wiped.
-        // The result is that all plugins previously loaded will get lost, which is certainly a BAD thing.
-        //
-        wax_setCurrentLuaState(L);
-        wax_setup();
-        waxLoaded=TRUE;
-    }
-    
     //This is a list of functions that can be called from Lua
     const luaL_Reg functionlist[] = {
         {NULL, NULL},
@@ -183,7 +168,10 @@ static int loader(lua_State *L)
 }
 
 static void g_initializePlugin(lua_State* L)
-{    
+{
+    wax_setCurrentLuaState(L);
+    wax_setup();
+    
     lua_getglobal(L, "package");
     lua_getfield(L, -1, "preload");
 
@@ -205,12 +193,9 @@ static void g_deinitializePlugin(lua_State *) {
             [subview removeFromSuperview];
         }
     }
-    
-    if (waxLoaded) {
-        // Stop Wax but only if currently loaded
-        wax_end();
-        waxLoaded=FALSE;
-    }
+
+    // Stop Wax
+    wax_end();
 }
 
 REGISTER_PLUGIN("wax", "1.0")
