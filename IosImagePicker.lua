@@ -39,7 +39,7 @@ end
 function IosImagePicker:isIPad()
 	-- Answer true if the current device is an iPad
 	local model=UIDevice:currentDevice():model()
-	return model=="iPad" or false
+	return string.find(model, "iPad")==1
 end
 
 function IosImagePicker:pickImage(sourceType, handlerFunc, handlerTarget)
