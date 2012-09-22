@@ -73,11 +73,12 @@ function BhWaxDemo:init()
 end
 
 function BhWaxDemo:onMouseUp(event)
-	if self:hitTestPoint(event.x, event.y) then
+	if self.button:hitTestPoint(event.x, event.y) then
 		self.button:removeFromParent()
 		self.label:removeFromParent()
 		local picker=IosImagePicker:init()
 		picker:pickImage(UIImagePickerControllerSourceTypePhotoLibrary, self.onImagePicked, self) 
+		event:stopPropagation()
 	end
 end
 
@@ -91,11 +92,12 @@ function BhWaxDemo:onImagePicked(image)
 	-- are simply plain C functions, we can't get hold of them from Wax. Hence the need to create a simple OBJC
 	-- wrapper protocol (see UIImage_Save.m)
 	--
+
 	local w, h=application:getContentWidth(), application:getContentHeight()
 	local smallest=math.min(w, h)
 	image=image:resize(CGSize(smallest*2/3, smallest*2/3))
 	print(image:savePNG("|D|pickedImage.png"))	
-	
+
 	-- Notice how Wax gives good debug prints
 	print("Picked an image:", image, image:size())
 	
@@ -105,8 +107,9 @@ function BhWaxDemo:onImagePicked(image)
 	bitmap:setPosition(application:getContentWidth()/2, application:getContentHeight()/3)
 	stage:addChild(bitmap)
 	self.bitmap=bitmap
+	--]]
 	
-	-- Give the user a chance to type in a tite
+	-- Give the user a chance to type in a title
 	self:createTitle()
 	
 	-- and to see how it's done
@@ -126,7 +129,7 @@ function BhWaxDemo:createTitle()
 	-- Put up a UITextView (chosen over UITextField because it is multiline) so we can edit
 	-- the photo title.
 	local titleField=UITextView:initWithFrame(
-		CGRect((w-titleWidth)/2, self.bitmap:getY()+self.bitmap:getHeight()/2+TITLE_FONT_SIZE, 
+		CGRect((w-titleWidth)/2, self.bitmap:getY()+TITLE_FONT_SIZE, 
 		titleWidth, TITLE_FONT_SIZE*3))
 		
 	titleField:setFont(font)
@@ -154,14 +157,47 @@ function BhWaxDemo:createYouTubeButton()
 	local w, h=application:getContentWidth(), application:getContentHeight()
 	local button=Bitmap.new(Texture.new("Images/YouTube.png"))
 	button:setAnchorPoint(0.5, 0.5)
-	button:setPosition(w/2, h*0.85)
+	button:setPosition(w/2, h*0.75)
 	button:addEventListener(Event.MOUSE_UP, function(event)
 		if self:hitTestPoint(event.x, event.y) then
-			self:playVideo("http://www.youtube.com/watch?v=zu1lTI4AtE8", (w-500)/2, 700, 500, 500/1.66)
+			self:playVideo("http://www.youtube.com/watch?v=zu1lTI4AtE8", (w-500)/2, 600, 500, 500/1.66)
 			button:removeFromParent()
 		end
 	end)
 	self:addChild(button)
+end
+
+local function set(self, param, value)
+	-- We can install this property set function on a Wax class instance
+	-- to allow us to GTween that instance.
+	if param=="scaleX" then
+		local transform=self:transform()
+		transform.a=value
+		self:setTransform(transform)
+	end
+	if param=="scaleY"  then
+		local transform=self:transform()
+		transform.d=value
+		self:setTransform(transform)
+	end
+end
+
+local function get(self, param)
+	-- We can install this property get function on a Wax class instance
+	-- to allow us to GTween that instance.
+	if param=="scaleX" then
+		local transform=self:transform()
+		return transform.a
+	end
+	if param=="scaleY" then
+		local transform=self:transform()
+		return transform.d
+	end
+end
+
+local function makeTweenable(object)
+	object.get=get
+	object.set=set
 end
 
 function BhWaxDemo:playVideo(url, x, y, width, height)
@@ -180,9 +216,16 @@ function BhWaxDemo:playVideo(url, x, y, width, height)
 	
 	local videoView=UIWebView:initWithFrame(CGRect(x, y, width, height))
 	videoView:loadHTMLString_baseURL(html, nil)
-	getRootViewController():view():addSubview(videoView)
 	
-	print(embedHTML)
+	-- Install some property accessor functions to allow tweening, which will
+	-- look pretty funky while the video is playing.
+	--
+	makeTweenable(videoView)
+	videoView:set("scaleX", 0.8)
+	videoView:set("scaleY", 0.8)	
+--	GTween.new(videoView, 2, {scaleX=1.1, scaleY=1.1}, {reflect=true, repeatCount=0, ease=easing.inOutSine})
+	
+	getRootViewController():view():addSubview(videoView)
 end
 
 -- ======== TextViewDelegate ========
