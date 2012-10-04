@@ -41,31 +41,36 @@ extern "C"{
 
 @implementation WaxFunction (Blocks)
 
+-(void)dealloc {
+    NSLog(@"WaxFunction FREED");
+    [super dealloc];
+}
+
 -(void (^)())asVoidNiladicBlock {
-    return [[^() {
+    return [^() {
         lua_State *L = wax_currentLuaState();
         wax_fromInstance(L, self);
         lua_call(L, 0, 0);
-    } copy] autorelease];
+    } copy];
 }
 
 -(void (^)(NSObject *p))asVoidMonadicBlock {
-    return [[^(NSObject *param) {
+    return [^(NSObject *param) {
         lua_State *L = wax_currentLuaState();
         wax_fromInstance(L, self);
         wax_fromInstance(L, param);
         lua_call(L, 1, 0);
-    } copy] autorelease];
+    } copy];
 }
 
 -(void (^)(NSObject *p1, NSObject * p2))asVoidDyadicBlock {
-    return [[^(NSObject *param1, NSObject *param2) {
+    return [^(NSObject *param1, NSObject *param2) {
         lua_State *L = wax_currentLuaState();
         wax_fromInstance(L, self);
         wax_fromInstance(L, param1);
         wax_fromInstance(L, param2);
         lua_call(L, 2, 0);
-    } copy] autorelease];
+    } copy];
 }
 @end
 
@@ -92,7 +97,6 @@ extern "C"{
         for(unsigned i=0; i<count; i++)
         {
             Class eachClass = classes[i];
-            Class superclass = class_getSuperclass(eachClass);
             [subclasses addObject:  ([NSString stringWithUTF8String: class_getName(eachClass)])];
         }
         free(classes);
@@ -101,7 +105,8 @@ extern "C"{
 }
 
 -(Class)bhClass {
-    return object_getClass(self);
+    Class c=object_getClass(self);
+    return c;
 }
 -(NSString *)bhClassName {
     return [NSString stringWithUTF8String: class_getName([self class])];
@@ -149,6 +154,12 @@ static int getPathForFile(lua_State *L) {
     return 1;
 }
 
+static int logSetLevel(lua_State *L) {
+   int level= luaL_checkinteger(L, 1);
+    glog_setLevel(level);
+    return 1;
+}
+
 static int loader(lua_State *L)
 {
     //This is a list of functions that can be called from Lua
@@ -162,6 +173,9 @@ static int loader(lua_State *L)
     
     lua_pushcfunction(L, getPathForFile);
    	lua_setglobal(L, "getPathForFile");
+    
+    lua_pushcfunction(L, logSetLevel);
+   	lua_setglobal(L, "logSetLevel");
 
     //return the pointer to the plugin
     return 1;
@@ -181,7 +195,7 @@ static void g_initializePlugin(lua_State* L)
     lua_pop(L, 2);
 }
 
-static void g_deinitializePlugin(lua_State *) {
+static void g_deinitializePlugin(lua_State * L) {
     // If we've added any subviews to the root view then we should remove them
     // since this will clear down the player's screen for a subsequent run.
     // We need to leave the original EAGLView though.

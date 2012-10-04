@@ -1,17 +1,20 @@
---[[ 
-IosImagePicker.lua
+--[[`
+# IosImagePicker.lua 
 
-Wax code to bring up the standard IOS ImagePicker. We get a callback to a supplied handler
-function if an image is picked successfully. The handler is supplied the real ObjectiveC
-UIImage object; how cool is that!
+This is a [Hot Wax] class to bring up the standard IOS ImagePicker. We get a callback to a supplied handler
+function if an image is picked successfully. The handler is passed the real ObjectiveC
+[UIImage] object to do with what we will.
 
-This code is almost a drop-in replacement for the plugin code that I wrote in BhImagePicker.mm
-(see http://bowerhaus.eu/blog/files/gideros_snapshot.html). However, that code is more complex to
+This code is almost a drop-in replacement for the plugin code that I wrote in *BhImagePicker.mm*
+(see [here](http://bowerhaus.eu/blog/files/gideros_snapshot.html)). However, that code is more complex to
 understand (IMO), needs to be careful with memory management and has 432 lines compared with 130 or so.
-Seems like a hands down win for Wax.
- 
-MIT License
-Copyright (C) 2012. Andy Bower, Bowerhaus LLP
+Seems like a hands down win for Hot Wax to me.
+
+[Hot Wax]: http://bowerhaus.eu/blog/files/hot_wax.html
+[UIImage]: http://developer.apple.com/library/ios/#documentation/uikit/reference/UIImage_Class/Reference/Reference.html
+
+@private
+## MIT License: Copyright (C) 2012. Andy Bower, Bowerhaus LLP
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -29,25 +32,45 @@ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 --]]
 
+--[[`
+## Class IosImagePicker [IosImagePicker]
+
+[IosImagePicker] is a Wax Class that brings up an iOS ImagePicker dialog to allow the user to choose an image from the
+device camera or photo library. The picked image will be passed to a callback handler function as an [UIImage] object.
+--]]
+
 waxClass({"IosImagePicker", NSObject, protocols={ "UIPopoverControllerDelegate", "UIImagePickerControllerDelegate"}})
 
 function IosImagePicker:init()
-	local picker=UIImagePickerController:init()
+	local picker=UIImagePickerController:init() 
 	return self
 end
 
-function IosImagePicker:isIPad()
+function IosImagePicker:isIPad() 
 	-- Answer true if the current device is an iPad
 	local model=UIDevice:currentDevice():model()
 	return string.find(model, "iPad")==1
 end
 
-function IosImagePicker:pickImage(sourceType, handlerFunc, handlerTarget)
-	-- Bring up an image picker based on what sort of device we are running on.
-	-- We are passed the callback handler function to use when an image is chosen
-	-- by the user.
+function IosImagePicker:pickImage(sourceType, handlerFunc, handlerTarget) --` @public @function
+	-- Bring up an image picker based on what sort of device we are running on. We are passed a callback handler function to use when an image is chosen by the user.
+	--
+	-- - **sourceType** 	- an integer describing the device location where the image should be picked
+	--						from. Can be one of the *UIImagePickerControllerSourceType* enum values. 
+	--						Hence, *UIImagePickerControllerSourceTypePhotoLibrary*, *UIImagePickerControllerSourceTypeCamera*, *UIImagePickerControllerSourceTypeSavedPhotosAlbum* are valid options.   
+	-- - **handlerFunc** 	- the function that will be called when an image has been picked. The picked image is passed as an [UIImage] parameter.   
+	-- - **handlerTarget** 	- (optional) target object of the handler function if it is an instance method.
+	--
+	-- ##### Typical usage:
+	--
+	--      local picker=IosImagePicker:init()
+	--      picker:pickImage(UIImagePickerControllerSourceTypePhotoLibrary, self.onImagePicked, self) 
+	--
+	--      function MyClass:onImagePicked(uiImage)		
+	--   	    uiImage:savePNG("|D|pickedImage.png")
+	--      end
 	
-	self.handlerFunc=handlerFunc
+self.handlerFunc=handlerFunc
 	self.handlerTarget=handlerTarget
 	
 	if self:isIPad() then
@@ -73,7 +96,6 @@ function IosImagePicker:pickImageIPad(sourceType)
 	local rootView=rootController:view()	
 	local bounds=rootView:bounds()
 	
-	print(rootView)
 	popover:setPopoverContentSize_animated(CGSize(bounds.width, bounds.height), false)	
 	popover:presentPopoverFromRect_inView_permittedArrowDirections_animated(rootView:frame(), rootView, 0, true)
 	return true

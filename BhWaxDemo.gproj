@@ -1,5 +1,5 @@
 <project>
- <properties autorotation="3" fps="60" scaleMode="2" iosDevice="0" packageName="com.yourdomain.yourapp" logicalHeight="1024" logicalWidth="768" retinaDisplay="3" assetsOnly="1" orientation="0" architecture="0">
+ <properties autorotation="3" fps="60" scaleMode="2" iosDevice="0" packageName="com.yourdomain.yourapp" logicalHeight="1024" logicalWidth="768" retinaDisplay="0" assetsOnly="1" orientation="0" architecture="0">
   <imageScales/>
  </properties>
  <folder name="Fonts">
@@ -11,13 +11,22 @@
  </folder>
  <folder name="Library">
   <file source="../BhHelpers/BhHelpers.lua"/>
+  <file source="../BhHelpers/BhStream.lua"/>
+  <file source="../../Misc/easing.lua"/>
+  <file source="../../Misc/gtween.lua"/>
  </folder>
  <folder name="Wax">
   <file source="../../CoreyJohnsonWax/lib/stdlib/waxClass.lua"/>
   <file source="../../CoreyJohnsonWax/lib/stdlib/structs.lua"/>
   <file source="../../CoreyJohnsonWax/lib/stdlib/enums.lua"/>
  </folder>
+ <file source="Autocomplete.lua"/>
+ <file source="BhUIViewFrame.lua"/>
+ <file source="BhWaxAutoComplete.lua"/>
  <file source="BhWaxDemo.lua"/>
+ <file source="BhWaxPhysicsDemo.lua"/>
+ <file source="IosActivitySpinner.lua"/>
  <file source="IosImagePicker.lua"/>
  <file source="init.lua"/>
+ <file source="main.lua"/>
 </project>

@@ -1,8 +1,7 @@
+--[[` 
+# BhWaxAutoComplete.lua
 
---[[ 
-BhWaxAutocomplete.lua
-
-BhWax allows you to write Cocoa code directly in Lua, inside the Gideros IDE. However, the ObjectiveC method selectors
+Hot Wax allows you to write Cocoa code directly in Lua, inside the Gideros IDE. However, the ObjectiveC method selectors
 are often quite long and difficult to remember. 
 
 This demo will walk the Cocoa class object tree and generate an autocompletion file of all the class and instance
@@ -12,8 +11,8 @@ will have to use "Show Package Contents" to drill into the Gideros Studio applic
 
 You must restart Gideros Studio after updating this file in order to see the new autocompletion annotations working.
  
-MIT License
-Copyright (C) 2012. Andy Bower, Bowerhaus LLP
+@private
+## MIT License: Copyright (C) 2012. Andy Bower, Bowerhaus LLP
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -68,18 +67,16 @@ function BhWaxAutocomplete:onMouseUp(event)
 		IosActivitySpinner.show("Working")	
 		self.button:setVisible(false)
 		Timer.delayedCall(1000, function() 
-			AutocompleteGenerator.new("|D|cocoa_annot.txt", "^GK", "^UI", "^SK", "^CM", "^CL", "^CG", "^AV", "^AD", 
+			AutocompleteGenerator.new("|D|cocoa_annot.txt", {"GK.*", "SK.*", "CM.*", "CL.*", "CG.*", "AV.*", "AD.*", 
 			"NSString", "NSNumber", "NSValue", "NSArray", "NSData", "NSDate", "NSDateFormatter", "NSDictionary", "NSEnumerator", "NSError", 
 			"NSException", "NSFileHandle", "NSFileManager", "NSFormatter", "NSHashTable", "NSInputStream", "NSLocale", "NSLock", "NSMutableArray", "NSMutableDictionary",
 			"NSMutableOrderedSet", "NSMutableIndexSet", "NSMutableSet", "NSMutableString", "NSNotification", "NSNumberFormatter", "NSObject", 
 			"NSOperation", "NSOperationQueue", "NSOrderedSet", "NSOutputStream", "NSProcessInfo", "NSSet", "NSStream", "NSTask", "NSThread", "NSTimer", 
-			"NSTimeZone", "NSURL", "NSURLRequest", "NSURLResponse", "NSUUID")
+			"NSTimeZone", "NSURL", "NSURLRequest", "NSURLResponse", "NSUUID"}, {"UIKeyboardCandidate", ".*Proxy$"})			
 			IosActivitySpinner.hide()
 			self.button:setVisible(true)
 		end)
 	end
 end
-
-BhWaxAutocomplete.new()
 
 

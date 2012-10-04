@@ -1,18 +1,18 @@
---[[ 
-Autocomplete.lua
+--[[`
+# Autocomplete.lua
 
 BhWax allows you to write Cocoa code directly in Lua, inside the Gideros IDE. However, the ObjectiveC method selectors
 are often quite long and difficult to remember. 
 
 This module will walk the Cocoa class object tree and generate an autocompletion file of all the class and instance
-methods for the classes that you specify. This autocompletion file, "cocoa_annot.txt", can be appended to the 
-"gideros_annot.api" file which is to be found in the "Gideros Studio/Contents/Resources" folder. Note that you
-will have to use "Show Package Contents" to drill into the Gideros Studio applicatuion to find this location.
+methods for the classes that you specify. This autocompletion file, *cocoa_annot.txt*, can be appended to the 
+*gideros_annot.api* file which is to be found in the */Applications/Gideros Studio/Contents/Resources* folder. Note that you
+will have to use **Show Package Contents** to drill into the Gideros Studio application to find this location.
 
 You must restart Gideros Studio after updating this file in order to see the new autocompletion annotations working.
 
-MIT License
-Copyright (C) 2012. Andy Bower, Bowerhaus LLP
+@private
+## MIT License: Copyright (C) 2012. Andy Bower, Bowerhaus LLP
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -38,20 +38,22 @@ function AutocompleteGenerator:getAllSubclassNamesOf(class, list)
 	end	
 end
 
-function AutocompleteGenerator:getClassNamesMatching(filter)
+function AutocompleteGenerator:getClassNamesMatching(filter, exclusions)
 	local allClasses={}
 	self:getAllSubclassNamesOf(NSObject, allClasses)
-	table.filter(allClasses, function(v) return v:find(filter) end)
+	table.filter(allClasses, function(v) return v:find("^"..filter.."$") end)
+	for i, excl in ipairs(exclusions) do
+		table.filter(allClasses, function(v) return not(v:find("^"..excl.."$")) end)
+	end
 	table.sort(allClasses)
 	return allClasses
 end
 
-function AutocompleteGenerator:generateAutocompleteListForClassesMatching(...)
+function AutocompleteGenerator:generateAutocompleteListForClassesMatching(inclusions, exclusions)
 	self.classMethods={}
 	self.instanceMethods={}
-	for i=1, #arg do
-		local filter=arg[i]
-		local classes=self:getClassNamesMatching(filter)
+	for i, filter in ipairs(inclusions) do
+		local classes=self:getClassNamesMatching(filter, exclusions)
 		for _,class in pairs(classes) do
 			self:collateAutocompleteForClass(class)
 		end
@@ -89,9 +91,10 @@ end
 function AutocompleteGenerator:collateAutocompleteForProperties(class)
 	local cls=_G[class]
 	local properties=cls:bhPropertyNames()
+	
 	for i,property in ipairs(properties) do
 		self:collateAutocompleteForMethod(property, cls, class, false, self.instanceMethods)
---		collateAutocompleteForMethod("set"..(property:gsub("^%l", string.upper)), cls, class, false, methods)
+		self:collateAutocompleteForMethod("set"..(property:gsub("^%l", string.upper)), cls, class, false, methods)
 	end
 end
 
@@ -140,8 +143,8 @@ function AutocompleteGenerator:formatAutocompleteSelector(selector, className, i
 	end
 end
 
-function AutocompleteGenerator:init(outputFile, ...)
+function AutocompleteGenerator:init(outputFile, inclusions, exclusions)
 	self.outputFile=outputFile
-	self:generateAutocompleteListForClassesMatching(...)
+	self:generateAutocompleteListForClassesMatching(inclusions, exclusions)
 end
 

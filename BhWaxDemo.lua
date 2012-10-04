@@ -1,12 +1,11 @@
+--[[`
+# BhWaxDemo.lua
+ 
+A quick demonstration of the [Hot Wax] Lua-ObjectiveC bridge as tuned for Gideros SDK. 
 
---[[ 
-BhWaxDemo
+KUDOS TO [COREY JOHNSON](https://github.com/probablycorey). This Wax stuff is truly magic!
 
-A quick demonstration of the Wax Lua-ObjectiveC bridge as tuned for Gideros SDK. 
-
-KUDOS TO COREY JOHNSON (https://github.com/probablycorey). This Wax stuff is truly magic!
-
-ONLY FOR IOS.
+Because of the nature of ObjectiveC, this demonstration is **ONLY FOR IOS**.
 
 In this demo we bring up a native IOS ImagePicker and allow the user to choose a photo from the photo
 library. Once an image is picked, it is resized and saved to our documents directory from where it
@@ -14,13 +13,15 @@ is loaded as a standard Gideros Bitmap. You are then given the opportunity to wr
 photo using an IOS multiline UITextView. After that, if you click on the YouTube logo, you'll see a 
 video showing how to get started with Wax and Gideros.
 
-In order for this example to work, the Gideros Player must be built will the BhWax plugin and the
-associated files for Wax itself. You will also need one additional ObjectiveC file (UIImage+Save.m) which
-contains a protocol extension to allow UIImage objects to resize and save themselves (see comment in
-BhWaxDemo:onPickedImage() below).
+*Please note, for this example to work, you will need to build your Gideros player with one
+additional ObjectiveC file (UIImage+Save.m), which
+contains a protocol extension to allow [UIImage] objects to resize and save themselves.*
+
+[Hot Wax]: http://bowerhaus.eu/blog/files/hot_wax.html
+[UIImage]: http://developer.apple.com/library/ios/#documentation/uikit/reference/UIImage_Class/Reference/Reference.html
  
-MIT License
-Copyright (C) 2012. Andy Bower, Bowerhaus LLP
+@private
+## MIT License: Copyright (C) 2012. Andy Bower, Bowerhaus LLP
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software
 and associated documentation files (the "Software"), to deal in the Software without restriction,
@@ -167,39 +168,6 @@ function BhWaxDemo:createYouTubeButton()
 	self:addChild(button)
 end
 
-local function set(self, param, value)
-	-- We can install this property set function on a Wax class instance
-	-- to allow us to GTween that instance.
-	if param=="scaleX" then
-		local transform=self:transform()
-		transform.a=value
-		self:setTransform(transform)
-	end
-	if param=="scaleY"  then
-		local transform=self:transform()
-		transform.d=value
-		self:setTransform(transform)
-	end
-end
-
-local function get(self, param)
-	-- We can install this property get function on a Wax class instance
-	-- to allow us to GTween that instance.
-	if param=="scaleX" then
-		local transform=self:transform()
-		return transform.a
-	end
-	if param=="scaleY" then
-		local transform=self:transform()
-		return transform.d
-	end
-end
-
-local function makeTweenable(object)
-	object.get=get
-	object.set=set
-end
-
 function BhWaxDemo:playVideo(url, x, y, width, height)
 	local html = string.format("\
     <html><head>\
@@ -216,14 +184,6 @@ function BhWaxDemo:playVideo(url, x, y, width, height)
 	
 	local videoView=UIWebView:initWithFrame(CGRect(x, y, width, height))
 	videoView:loadHTMLString_baseURL(html, nil)
-	
-	-- Install some property accessor functions to allow tweening, which will
-	-- look pretty funky while the video is playing.
-	--
-	makeTweenable(videoView)
-	videoView:set("scaleX", 0.8)
-	videoView:set("scaleY", 0.8)	
---	GTween.new(videoView, 2, {scaleX=1.1, scaleY=1.1}, {reflect=true, repeatCount=0, ease=easing.inOutSine})
 	
 	getRootViewController():view():addSubview(videoView)
 end
@@ -246,6 +206,5 @@ end
 
 -- ======== End ========
 
-BhWaxDemo.new()
 
 
