@@ -154,11 +154,12 @@ function BhUIViewFrame:init(uiview) --` @public @function
 	--     GTween.new(frame, 2, {x=100, y=50})   
 	
 	-- Use an invisible Shape to give us a tangible area
+	local frame=uiview:frame()
 	self:beginPath(Shape.NON_ZERO)
 	self:moveTo(0, 0)
-	self:lineTo(w, 0)
-	self:lineTo(w, h)
-	self:lineTo(0, h)
+	self:lineTo(frame.width, 0)
+	self:lineTo(frame.width, frame.height)
+	self:lineTo(0, frame.height)
 	self:lineTo(0, 0)
 	self:endPath()
 	
