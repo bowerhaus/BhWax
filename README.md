@@ -4,7 +4,7 @@ Hot Wax for Gideros
 
 [Wax](https://github.com/probablycorey/wax) is a Lua <-> Objective C bridge by [Corey Johnson](https://github.com/probablycorey).
 This module is a plugin for [Gideros SDK](http://giderosmobile.com) that allows Wax to be
-used in Gideros apps. I've chosen to call this [Hot Wax] or *BhWax*. Some small changes have to be made to Corey's
+used in Gideros apps. I've chosen to call this [Hot Wax] or BhWax. Some small changes have to be made to Corey's
 original Wax code so you are required to pull down a modified repository for this from my GitHub, called
 [CoreyJohnsonWax](https://github.com/bowerhaus/CoreyJohnsonWax.git).
 
@@ -21,6 +21,7 @@ for the image picker demo in [BhWaxDemo.lua]).
  
  - [BhWaxDemo.lua] - Example that displays an image picker, a [UITextView] and a YouTube video.
  - [BhWaxPhysicsDemo.lua] - Example showing Box2d physics interfacing with [UIView]s.
+ - [BhWaxSceneDemo.lua] - Example showing [UIButton]s obeying the rules of the Gideros Scene Manager.
  - [BhWaxAutoComplete.lua] - Utility to generate Gideros API information for the Cocoa libraries.
   
  The following utility modules may be useful in other projects:
@@ -32,6 +33,7 @@ for the image picker demo in [BhWaxDemo.lua]).
  
      BhWaxDemo.new()
      BhWaxPhysicsDemo.new()
+	 BhWaxSceneDemo.new()
      BhAutoComplete.new()
 	 
 
@@ -112,6 +114,16 @@ will have to use "Show Package Contents" to drill into the Gideros Studio applic
 You must restart Gideros Studio after updating this file in order to see the new autocompletion annotations working.
  
 
+# BhWaxSceneDemo.lua
+
+The intention behind this demonstration is to show how [UIButton]s created using [Hot Wax] and wrapped with [BhUIViewFrame] 
+objects can obey the rules of the Gideros SceneManager. As an aside this sample also shows the use of the
+Text to Speech feature that is available as part of Google Translate.
+
+[Hot Wax]: http://bowerhaus.eu/blog/files/hot_wax.html
+[UIButton]: http://developer.apple.com/library/ios/#documentation/uikit/reference/UIButton_Class/UIButton/UIButton.html]
+
+
 # IosImagePicker.lua 
 
 This is a [Hot Wax] class to bring up the standard IOS ImagePicker. We get a callback to a supplied handler
@@ -169,7 +181,7 @@ Note that this uses an **ENTER_FRAME** handler to apply the transformations and 
 Hence, even though we try to minimise the effort when nothing has been changed, you should be aware that animating many 
 [BhUIViewFrame]s at once may have a performance penalty.
 
-### function BhUIViewFrame:init(uiview) [BhUIViewFrame:init]
+### function BhUIViewFrame:init(uiview, optFrame) [BhUIViewFrame:init]
 Constructor for a [BhUIViewFrame] that will wrap the supplied [UIView]. It is assumed that *uiview*
 will not yet have been added to the iOS root view controller. When the frame object is eventually added to the Gideros
 stage, the associated [UIView] will also be added to the root view at the same time.

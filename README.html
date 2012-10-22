@@ -69,7 +69,7 @@ pre .tex .command {
 
 <p><a href="https://github.com/probablycorey/wax">Wax</a> is a Lua &lt;-&gt; Objective C bridge by <a href="https://github.com/probablycorey">Corey Johnson</a>.
 This module is a plugin for <a href="http://giderosmobile.com">Gideros SDK</a> that allows Wax to be
-used in Gideros apps. I&#8217;ve chosen to call this <a href="http://bowerhaus.eu/blog/files/hot_wax.html">Hot Wax</a> or <em>BhWax</em>. Some small changes have to be made to Corey&#8217;s
+used in Gideros apps. I&#8217;ve chosen to call this <a href="http://bowerhaus.eu/blog/files/hot_wax.html">Hot Wax</a> or BhWax. Some small changes have to be made to Corey&#8217;s
 original Wax code so you are required to pull down a modified repository for this from my GitHub, called
 <a href="https://github.com/bowerhaus/CoreyJohnsonWax.git">CoreyJohnsonWax</a>.</p>
 
@@ -87,6 +87,7 @@ for the image picker demo in <a href="#bhwaxdemo.lua">BhWaxDemo.lua</a>).</p>
 <ul>
 <li><a href="#bhwaxdemo.lua">BhWaxDemo.lua</a> - Example that displays an image picker, a <a href="http://developer.apple.com/library/ios/#documentation/uikit/reference/UITextView_Class/Reference/UITextView.html">UITextView</a> and a YouTube video.</li>
 <li><a href="#bhwaxphysicsdemo.lua">BhWaxPhysicsDemo.lua</a> - Example showing Box2d physics interfacing with <a href="http://developer.apple.com/library/ios/#documentation/uikit/reference/UIView_Class/UIView/UIView.html">UIView</a>s.</li>
+<li><a href="#bhwaxscenedemo.lua">BhWaxSceneDemo.lua</a> - Example showing <a href="http://developer.apple.com/library/ios/#documentation/uikit/reference/UIButton_Class/UIButton/UIButton.html]">UIButton</a>s obeying the rules of the Gideros Scene Manager.</li>
 <li><a href="#bhwaxautocomplete.lua">BhWaxAutoComplete.lua</a> - Utility to generate Gideros API information for the Cocoa libraries.</li>
 </ul>
 
@@ -101,6 +102,7 @@ for the image picker demo in <a href="#bhwaxdemo.lua">BhWaxDemo.lua</a>).</p>
 
 <pre><code> BhWaxDemo.new()
  BhWaxPhysicsDemo.new()
+ BhWaxSceneDemo.new()
  BhAutoComplete.new()
 </code></pre>
 
@@ -172,6 +174,12 @@ will have to use &#8220;Show Package Contents&#8221; to drill into the Gideros S
 
 <p>You must restart Gideros Studio after updating this file in order to see the new autocompletion annotations working.</p>
 
+<h1 id="bhwaxscenedemo.lua">BhWaxSceneDemo.lua</h1>
+
+<p>The intention behind this demonstration is to show how <a href="http://developer.apple.com/library/ios/#documentation/uikit/reference/UIButton_Class/UIButton/UIButton.html]">UIButton</a>s created using <a href="http://bowerhaus.eu/blog/files/hot_wax.html">Hot Wax</a> and wrapped with <a href="#bhuiviewframe">BhUIViewFrame</a>
+objects can obey the rules of the Gideros SceneManager. As an aside this sample also shows the use of the
+Text to Speech feature that is available as part of Google Translate.</p>
+
 <h1 id="iosimagepicker.lua">IosImagePicker.lua</h1>
 
 <p>This is a <a href="http://bowerhaus.eu/blog/files/hot_wax.html">Hot Wax</a> class to bring up the standard IOS ImagePicker. We get a callback to a supplied handler
@@ -225,7 +233,7 @@ position, size, rotation, visibility and also alpha. </p>
 Hence, even though we try to minimise the effort when nothing has been changed, you should be aware that animating many
 <a href="#bhuiviewframe">BhUIViewFrame</a>s at once may have a performance penalty.</p>
 
-<h3 id="bhuiviewframe:init">function BhUIViewFrame:init(uiview)</h3>
+<h3 id="bhuiviewframe:init">function BhUIViewFrame:init(uiview, optFrame)</h3>
 
 <p>Constructor for a <a href="#bhuiviewframe">BhUIViewFrame</a> that will wrap the supplied <a href="http://developer.apple.com/library/ios/#documentation/uikit/reference/UIView_Class/UIView/UIView.html">UIView</a>. It is assumed that <em>uiview</em>
 will not yet have been added to the iOS root view controller. When the frame object is eventually added to the Gideros

@@ -35,9 +35,9 @@ position, size, rotation, visibility and also alpha.
 Note that this uses an **ENTER_FRAME** handler to apply the transformations and each of these many involve several Wax calls.
 Hence, even though we try to minimise the effort when nothing has been changed, you should be aware that animating many 
 [BhUIViewFrame]s at once may have a performance penalty.
---]]
+--]] 
 
-BhUIViewFrame=Core.class(Shape)
+BhUIViewFrame=Core.class(Shape) 
 
 local function uiSetRotation(self, angle)
 	-- Taxing my matrix maths to the limit :-)
@@ -142,7 +142,7 @@ function BhUIViewFrame:setSize(width, height)
 	self:setHeight(height)
 end
 
-function BhUIViewFrame:init(uiview) --` @public @function
+function BhUIViewFrame:init(uiview, optFrame) --` @public @function
 	-- Constructor for a [BhUIViewFrame] that will wrap the supplied [UIView]. It is assumed that *uiview*
 	-- will not yet have been added to the iOS root view controller. When the frame object is eventually added to the Gideros
 	-- stage, the associated [UIView] will also be added to the root view at the same time.
@@ -154,13 +154,13 @@ function BhUIViewFrame:init(uiview) --` @public @function
 	--     GTween.new(frame, 2, {x=100, y=50})   
 	
 	-- Use an invisible Shape to give us a tangible area
-	local frame=uiview:frame()
+	local frame=optFrame or uiview:frame()
 	self:beginPath(Shape.NON_ZERO)
-	self:moveTo(0, 0)
-	self:lineTo(frame.width, 0)
-	self:lineTo(frame.width, frame.height)
-	self:lineTo(0, frame.height)
-	self:lineTo(0, 0)
+	self:moveTo(frame.x, frame.y)
+	self:lineTo(frame.x+frame.width, frame.y)
+	self:lineTo(frame.x+frame.width, frame.y+frame.height)
+	self:lineTo(frame.x, frame.y+frame.height)
+	self:lineTo(frame.x, frame.y)
 	self:endPath()
 	
 	self.uiview=uiview

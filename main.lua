@@ -21,6 +21,7 @@ for the image picker demo in [BhWaxDemo.lua]).
  
  - [BhWaxDemo.lua] - Example that displays an image picker, a [UITextView] and a YouTube video.
  - [BhWaxPhysicsDemo.lua] - Example showing Box2d physics interfacing with [UIView]s.
+ - [BhWaxSceneDemo.lua] - Example showing [UIButton]s obeying the rules of the Gideros Scene Manager.
  - [BhWaxAutoComplete.lua] - Utility to generate Gideros API information for the Cocoa libraries.
   
  The following utility modules may be useful in other projects:
@@ -32,6 +33,7 @@ for the image picker demo in [BhWaxDemo.lua]).
  
      BhWaxDemo.new()
      BhWaxPhysicsDemo.new()
+	 BhWaxSceneDemo.new()
      BhAutoComplete.new()
 	 
 
@@ -64,6 +66,7 @@ Folder for MODIFIED VERSION OF WAX
 @include "BhWaxDemo.lua"
 @include "BhWaxPhysicsDemo.lua"
 @include "BhWaxAutoComplete.lua"
+@include "BhWaxSceneDemo.lua"
 @include "IosImagePicker.lua"
 @include "BhUIViewFrame.lua"
 
@@ -88,6 +91,14 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SO
 
 -- Enable ONE of the following lines depending on which demo you want to run
 
-BhWaxDemo.new()
+   BhWaxDemo.new()
 -- BhWaxPhysicsDemo.new()
+-- BhWaxSceneDemo.new()
 -- BhAutoComplete.new()
+
+
+
+
+
+
+

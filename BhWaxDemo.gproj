@@ -1,5 +1,5 @@
 <project>
- <properties autorotation="3" fps="60" scaleMode="2" iosDevice="0" packageName="com.yourdomain.yourapp" logicalHeight="1024" logicalWidth="768" retinaDisplay="0" assetsOnly="1" orientation="0" architecture="0">
+ <properties autorotation="3" fps="60" scaleMode="3" iosDevice="0" packageName="com.yourdomain.yourapp" logicalHeight="1024" logicalWidth="768" retinaDisplay="0" assetsOnly="1" orientation="0" architecture="0">
   <imageScales/>
  </properties>
  <folder name="Fonts">
@@ -10,6 +10,7 @@
   <file source="Images/YouTube.png"/>
  </folder>
  <folder name="Library">
+  <file source="../../Gideros/SceneManager/scenemanager.lua"/>
   <file source="../BhHelpers/BhHelpers.lua"/>
   <file source="../BhHelpers/BhStream.lua"/>
   <file source="../../Misc/easing.lua"/>
@@ -25,6 +26,7 @@
  <file source="BhWaxAutoComplete.lua"/>
  <file source="BhWaxDemo.lua"/>
  <file source="BhWaxPhysicsDemo.lua"/>
+ <file source="BhWaxSceneDemo.lua"/>
  <file source="IosActivitySpinner.lua"/>
  <file source="IosImagePicker.lua"/>
  <file source="init.lua"/>
