@@ -6,6 +6,8 @@
   <file source="../BhHelpers/Tahoma.ttf"/>
  </folder>
  <folder name="Images">
+  <file source="Images/uk.png"/>
+  <file source="Images/fr.png"/>
   <file source="Images/Art/HotWax.png"/>
   <file source="Images/YouTube.png"/>
  </folder>

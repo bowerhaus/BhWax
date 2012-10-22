@@ -54,6 +54,11 @@ function DemoScene1:init()
 	button.delegate=ControlDelegate.new(button, UIControlEventTouchUpInside, self.onButtonClicked, self)
 	local buttonFrame=BhUIViewFrame.new(button, CGRect((768-200)/2, (1024-100)/2, 200, 100))
 	self:addChild(buttonFrame)
+	
+	local image=UIImage:imageWithContentsOfFile(getPathForFile("|R|Images/uk.png"))
+	local imageView=UIImageView:initWithImage(image)
+	local imageFrame=BhUIViewFrame.new(imageView, CGRect((768-200)/2, 100, 216, 216))
+	self:addChild(imageFrame)
 end
 
 function DemoScene1:onButtonClicked()
@@ -76,6 +81,11 @@ function DemoScene2:init()
 	button.delegate=ControlDelegate.new(button, UIControlEventTouchUpInside, self.onButtonClicked, self)
 	local buttonFrame=BhUIViewFrame.new(button, CGRect((768-200)/2, (1024-100)/2, 200, 100))
 	self:addChild(buttonFrame)
+	
+	local image=UIImage:imageWithContentsOfFile(getPathForFile("|R|Images/fr.png"))
+	local imageView=UIImageView:initWithImage(image)
+	local imageFrame=BhUIViewFrame.new(imageView, CGRect((768-200)/2, 100, 216, 216))
+	self:addChild(imageFrame)
 end
 
 function DemoScene2:onButtonClicked()
