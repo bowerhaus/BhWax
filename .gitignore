@@ -1,3 +1,6 @@
 *.tmp 
 *.bin
 *.md5
+*.pch
+.tmp
+Plugin/IOS/hotwax/build

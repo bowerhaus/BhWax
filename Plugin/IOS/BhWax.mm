@@ -22,6 +22,7 @@
 //
 
 #import <sys/socket.h>
+#import <UIKit/UIKit.h>
 #import "objc/runtime.h"
 #include "gideros.h"
 
