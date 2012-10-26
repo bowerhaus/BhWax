@@ -48,6 +48,12 @@ Place your own projects in folder below here
 #####/MyDocs/Library
 Folder for library modules
 
+#####/MyDocs/Library/Gideros
+Folder for miscellaneous Gideros classes, including SceneManager. You will NEED THIS MODULE.
+
+#####/MyDocs/Library/Misc
+Folder for miscellaneous classes, such as GTween and Easing. You will NEED THIS MODULE.
+
 #####/MyDocs/Library/Bowerhaus
 Folder containing sub-folders for all Bowerhaus libraries
 
@@ -55,7 +61,7 @@ Folder containing sub-folders for all Bowerhaus libraries
 Folder for helper/utility functions. You will NEED THIS MODULE.
 
 #####/MyDocs/Library/Bowerhaus/BhWax
-Folder for THIS MODULE
+Folder for THIS MODULE 
 
 #####/MyDocs/Library/CoreyJohnsonWax
 Folder for MODIFIED VERSION OF WAX
