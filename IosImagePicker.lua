@@ -52,6 +52,21 @@ function IosImagePicker:isIPad()
 	return string.find(model, "iPad")==1
 end
 
+function IosImagePicker:isSourceAvailable(sourceType)
+	-- Answer true if the supplied sourceType is actually available on the device
+	return UIImagePickerController:isSourceTypeAvailable(sourceType)
+end
+
+function IosImagePicker:hasPhotoLibrary()
+	-- Helper method to return true if the device has an active photo library
+	return self:isSourceAvailable(UIImagePickerControllerSourceTypePhotoLibrary)
+end
+
+function IosImagePicker:hasSavedPhotosAlbum()
+	-- Helper method to return true if the device has an active album for saved photos
+	return self:isSourceAvailable(UIImagePickerControllerSourceTypeSavedPhotosAlbum)
+end
+
 function IosImagePicker:pickImage(sourceType, handlerFunc, handlerTarget) --` @public @function
 	-- Bring up an image picker based on what sort of device we are running on. We are passed a callback handler function to use when an image is chosen by the user.
 	--

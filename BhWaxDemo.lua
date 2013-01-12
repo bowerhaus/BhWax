@@ -75,10 +75,12 @@ end
 
 function BhWaxDemo:onMouseUp(event)
 	if self.button:hitTestPoint(event.x, event.y) then
-		self.button:removeFromParent()
-		self.label:removeFromParent()
 		local picker=IosImagePicker:init()
-		picker:pickImage(UIImagePickerControllerSourceTypePhotoLibrary, self.onImagePicked, self) 
+		if picker:hasPhotoLibrary() then
+			self.button:removeFromParent()
+			self.label:removeFromParent()
+			picker:pickImage(UIImagePickerControllerSourceTypePhotoLibrary, self.onImagePicked, self) 
+		end
 		event:stopPropagation()
 	end
 end
@@ -108,8 +110,7 @@ function BhWaxDemo:onImagePicked(image)
 	bitmap:setPosition(application:getContentWidth()/2, application:getContentHeight()/3)
 	stage:addChild(bitmap)
 	self.bitmap=bitmap
-	--]]
-	
+
 	-- Give the user a chance to type in a title
 	self:createTitle()
 	
