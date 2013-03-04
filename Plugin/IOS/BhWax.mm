@@ -38,6 +38,7 @@ extern "C"{
 - (void (^)())asVoidNiladicBlock;
 - (void (^)( NSObject *))asVoidMonadicBlock;
 - (void (^)( NSObject *, NSObject *))asVoidDyadicBlock;
+- (void (^)( NSObject *, NSObject *, NSObject*))asVoidTriadicBlock;
 @end
 
 @implementation WaxFunction (Blocks)
@@ -71,6 +72,17 @@ extern "C"{
         wax_fromInstance(L, param1);
         wax_fromInstance(L, param2);
         lua_call(L, 2, 0);
+    } copy];
+}
+
+-(void (^)(NSObject *p1, NSObject * p2, NSObject *p3))asVoidTriadicBlock {
+    return [^(NSObject *param1, NSObject *param2, NSObject *param3) {
+        lua_State *L = wax_currentLuaState();
+        wax_fromInstance(L, self);
+        wax_fromInstance(L, param1);
+        wax_fromInstance(L, param2);
+        wax_fromInstance(L, param3);
+        lua_call(L, 3, 0);
     } copy];
 }
 @end

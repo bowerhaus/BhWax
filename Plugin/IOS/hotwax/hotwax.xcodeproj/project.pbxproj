@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8B4D1D3716E4A64B00FEA4F2 /* gevent.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B4D1D3616E4A64B00FEA4F2 /* gevent.h */; };
+		8B4D1D3916E4A65100FEA4F2 /* gapplication.h in Headers */ = {isa = PBXBuildFile; fileRef = 8B4D1D3816E4A65100FEA4F2 /* gapplication.h */; };
 		8BC092BF1635FAD6002BDAA0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BC092BE1635FAD6002BDAA0 /* Foundation.framework */; };
 		8BC092D11635FB30002BDAA0 /* BhWax.mm in Sources */ = {isa = PBXBuildFile; fileRef = 8BC092CF1635FB30002BDAA0 /* BhWax.mm */; };
 		8BC092D21635FB30002BDAA0 /* ProtocolLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 8BC092D01635FB30002BDAA0 /* ProtocolLoader.h */; };
@@ -34,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8B4D1D3616E4A64B00FEA4F2 /* gevent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gevent.h; path = "../../../../../../../../../../../../Applications/Gideros Studio/Sdk/include/gevent.h"; sourceTree = "<group>"; };
+		8B4D1D3816E4A65100FEA4F2 /* gapplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gapplication.h; path = "../../../../../../../../../../../../Applications/Gideros Studio/Sdk/include/gapplication.h"; sourceTree = "<group>"; };
 		8BC092BB1635FAD6002BDAA0 /* libhotwax.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libhotwax.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BC092BE1635FAD6002BDAA0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8BC092C21635FAD6002BDAA0 /* hotwax-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "hotwax-Prefix.pch"; sourceTree = "<group>"; };
@@ -102,6 +106,8 @@
 		8BC092C01635FAD6002BDAA0 /* hotwax */ = {
 			isa = PBXGroup;
 			children = (
+				8B4D1D3816E4A65100FEA4F2 /* gapplication.h */,
+				8B4D1D3616E4A64B00FEA4F2 /* gevent.h */,
 				8BC092F11635FB76002BDAA0 /* gglobal.h */,
 				8BC092F21635FB76002BDAA0 /* gideros.h */,
 				8BC092F31635FB76002BDAA0 /* gplugin.h */,
@@ -160,6 +166,8 @@
 				8BC092FA1635FB76002BDAA0 /* lauxlib.h in Headers */,
 				8BC092FB1635FB76002BDAA0 /* lua.h in Headers */,
 				8BC092FC1635FB76002BDAA0 /* lualib.h in Headers */,
+				8B4D1D3716E4A64B00FEA4F2 /* gevent.h in Headers */,
+				8B4D1D3916E4A65100FEA4F2 /* gapplication.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
