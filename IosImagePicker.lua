@@ -42,7 +42,7 @@ device camera or photo library. The picked image will be passed to a callback ha
 waxClass({"IosImagePicker", NSObject, protocols={ "UIPopoverControllerDelegate", "UIImagePickerControllerDelegate"}})
 
 function IosImagePicker:init()
-	local picker=UIImagePickerController:init() 
+	--local picker=UIImagePickerController:init() 
 	return self
 end
 

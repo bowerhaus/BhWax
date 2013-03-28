@@ -71,6 +71,8 @@ function BhWaxDemo:init()
 	label:setPosition((w-label:getWidth())/2, h-100)
 	self:addChild(label)
 	self.label=label
+	
+--	self:addEventListener(Event.ENTER_FRAME, function() collectgarbage("collect") end)
 end
 
 function BhWaxDemo:onMouseUp(event)
