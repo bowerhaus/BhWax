@@ -164,7 +164,9 @@ function BhWaxDemo:createYouTubeButton()
 	button:setPosition(w/2, h*0.75)
 	button:addEventListener(Event.MOUSE_UP, function(event)
 		if self:hitTestPoint(event.x, event.y) then
-			self:playVideo("http://www.youtube.com/watch?v=zu1lTI4AtE8", (w-500)/2, 600, 500, 500/1.66)
+			 -- amended URL format to work within Xcode 4.5 & iOS6+,
+			-- per https://devforums.apple.com/message/705665#705665
+			self:playVideo("http://www.youtube.com/v/zu1lTI4AtE8", (w-500)/2, 600, 500, 500/1.66)
 			button:removeFromParent()
 		end
 	end)
