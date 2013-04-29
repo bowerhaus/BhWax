@@ -51,7 +51,8 @@ function DemoScene1:init()
 	
 	local button=UIButton:buttonWithType(UIButtonTypeRoundedRect)
 	button:setTitle_forState("Press me to go to France", UIControlStateNormal)
-	button.delegate=ControlDelegate.new(button, UIControlEventTouchUpInside, self.onButtonClicked, self)
+	button.delegate=ControlDelegate:init(button, UIControlEventTouchUpInside, self.onButtonClicked, self)
+	
 	local buttonFrame=BhUIViewFrame.new(button, CGRect((768-200)/2, (1024-100)/2, 200, 100))
 	self:addChild(buttonFrame)
 	
@@ -78,7 +79,7 @@ function DemoScene2:init()
 	
 	local button=UIButton:buttonWithType(UIButtonTypeRoundedRect)
 	button:setTitle_forState("Appuyez-moi de revenir", UIControlStateNormal)
-	button.delegate=ControlDelegate.new(button, UIControlEventTouchUpInside, self.onButtonClicked, self)
+	button.delegate=ControlDelegate:init(button, UIControlEventTouchUpInside, self.onButtonClicked, self)
 	local buttonFrame=BhUIViewFrame.new(button, CGRect((768-200)/2, (1024-100)/2, 200, 100))
 	self:addChild(buttonFrame)
 	
@@ -116,12 +117,11 @@ end
 
 waxClass({"ControlDelegate"})	
 
-function ControlDelegate.new(uicontrol, eventMask, func, target)
-	local delegate=self:init()
+function ControlDelegate:init(uicontrol, eventMask, func, target)
 	uicontrol:addTarget_action_forControlEvents(self, "onAction", eventMask)
 	self.func=func
 	self.target=target
-	return delegate
+	return self
 end
 
 function ControlDelegate:onAction()
