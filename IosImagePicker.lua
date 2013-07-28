@@ -88,6 +88,12 @@ function IosImagePicker:pickImage(sourceType, handlerFunc, handlerTarget) --` @p
 self.handlerFunc=handlerFunc
 	self.handlerTarget=handlerTarget
 	
+	-- There appears to be an issue where a crash will occur if a GC occurs in an ENTER_FRAME handler
+	-- while the image picker is onscreen (animating?). As a temporary fix we disable GC during this 
+	-- period.
+	--
+	collectgarbage("stop")
+	
 	if self:isIPad() then
 		self:pickImageIPad(sourceType)
 	else
@@ -140,6 +146,7 @@ function IosImagePicker:dismiss()
 		self.popover:dismissPopoverAnimated(true)
 		self.popover=nil
 	end
+	collectgarbage("restart")
 end
 
 function IosImagePicker:popoverControllerDidDismissPopover(controller)
